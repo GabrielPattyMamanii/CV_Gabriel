@@ -1,0 +1,575 @@
+/****************Custom Properties*********************/
+/*ESTO FUNCIONA COMO UN #DEFINE en lenguaje C*/
+/*ESTAS VARIBLES TIENEN EL ALCANZE PARA TODO EL DOCUMENTO DE LA PAGINA, LLEGA HASTA EL INDEX, CSS Y JS*/
+:root{
+  --fistcolor:#D90062;
+  --first-alpha-color:rgba(217, 0, 98, 0.75);  
+  --second-color:#14192D;
+  --second-alpha-color:rgba(20, 25, 45, 0.75);
+  --third-color:#501464;
+  --third-alpha-color:rgba(80, 20, 100, 0.75);
+  --white-color: #fff;
+  --gray-light-color: #f3f3f3;
+  --gray-color:#ccc;
+  --gray-dark-color:#666;
+  --black-color:#000;
+  --link-color:#509ee3;
+  --title-color: #333;
+  --text-color: #222;
+  --white-alpha-color:rgba(255,255,255,0.5);
+  --black-alpha-color:rgba(0,0,0,0.5);
+  --font:"Raleway", sans-serif;
+  --max-width:1200px;
+  --header-height: 4rem;
+
+
+  /*1 rem=16px*/
+}
+
+/***************Reset****************/
+
+html{
+    box-sizing:border-box;
+    font-family: var(--font);
+    font-size:16px;
+    scroll-behavior:smooth; /*NOS DA UN EFECTO DEL SCROLL*/
+}
+
+*,*::after,*::before{
+    box-sizing:inherit
+}
+
+body{
+    margin:0;
+    overflow-x:hidden ; /*Oculta la barra de desplazamiento horizontal*/
+    color:var(--text-color);
+    
+}
+
+a
+{
+    color:var(--link-color);
+    transition: all 0.5s ease-out;
+}
+
+a.hover{
+    opacity: 0.75;
+}
+
+
+
+h1{
+    margin:0;
+    font-size: 2rem;
+}
+
+h2{
+    margin:0;
+    font-size: 1.5rem;
+}
+h3{
+    margin:0;
+    font-size: 1.25rem;
+}
+h4{
+    margin:0;
+    font-size: 1rem;
+}
+h5{
+    margin:0;
+    font-size: 0.85rem;
+}
+h6{
+    margin:0;
+    font-size: 0.7rem;
+}
+
+img{
+    max-width:100%; /*con esto las imagenes se adaptan al mataño de la*/
+    height: auto;
+}
+
+p{
+
+    line-height:1.6; /*espacio que hay entre cada linea de texto*/
+
+}
+
+
+/************Components**************/
+
+/************Hero-Image************/
+.hero-image{
+    background-image: var(--hero-image); /*esta variable no esta definida en el ROOT pero esta definida en la seccion "inicio" del html*/
+    background-repeat: no-repeat;
+    background-size: cover; /*la imagen se adapta a la altura del contenedor de manera proporcional*/
+    background-position: center;
+    background-attachment: var(--hero-attachment);  /*al mover el scroll la imagen no se movera*/
+}
+
+.hero-image-opacity{  /*las instrucciones que coloquemos aqui, afectaran tmb a sus hijos de esta seccion: "hero-image-content" y "hero-image-title">*/
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /*alinea los textos al centro*/
+    background-color: var(--hero-opacity-color);
+}
+
+.hero-image-title{
+    font-size:7.5vw;
+    color:var(--hero-text-color);
+}
+.hero-image-title br{
+    display: flex;
+    justify-content: center;
+}
+
+/*MAQUETADO MENU MOVIL*/
+/*********Menu***********/
+
+.menu-btn{
+    outline:thin solid var(--fistcolor);
+    border:0; /*quita el borde por defecto de html*/
+    cursor: pointer; /*al pasar el mouse por encima, aparecera una mano*/
+    background-color: var(--second-color);
+}
+
+.menu-btn svg{
+    fill:var(--fistcolor); /*ESTO DAR COLOR A LOS ARCHIVOS "SVG"*/
+}
+
+.menu{
+    position:fixed;
+    left:0;
+    bottom: var(--header-height); /*el mismo tamaño de la altura de la cabezera*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--second-color);
+    opacity:0;
+    pointer-events: none; /*con esto indico que los elementos no reaccionen frente a interactividad*/
+    transition: opacity 0.5s ease; ; /*se le agrega una transicion de medio segundo*/
+
+}
+
+.menu.is-active{ /*se encargara de cambiar la opacidad*/
+    opacity: 1;
+    pointer-events: auto;
+
+}
+
+.menu a{
+    padding: 1rem;
+    font-size:1.5rem;
+    font-weight:bold;
+    text-align: center;
+    text-decoration: none;
+    color:var(--fistcolor);
+
+}
+
+.menu a:hover{ /*estado hover*/
+    color:var(--white-color);
+    background-color: var(--fistcolor);
+
+}
+/*FIN*/
+
+/*MAQUETADO ESCRITORIO HEADER Y MENU*/
+@media screen and (min-width:1024px){ 
+    .menu-btn{
+        display:none;
+    }
+
+    .menu{
+        position: static;
+        width:auto;
+        flex-direction: row;
+        opacity:1;
+        pointer-events: auto;
+    }
+
+    .menu a{
+        padding:0 1rem;
+    }
+
+    .menu a:last-child{ /*AL ULTIMO ENLACE LE QUITA EL PADDING DERECHO A 0*/
+        padding-right:0;
+    }
+
+    .menu a:hover{
+        background-color: transparent;
+    }
+
+}
+/*FIN*/
+
+
+/*******Modal******/
+.modal{
+    position: fixed; /*posicion fija, aunque muevas con el mouse arriba o abajo*/
+    z-index: 999; /*para que este siempre sobre cualquier contenido*/
+
+    /*Con esto lo oblico al contenedor modal que ocupe toda la pantalla*/
+    top:0;
+    right: 0;
+    bottom:0;
+    left:0;
+    /**/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black-alpha-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 1s;
+}
+
+.modal-content{
+    position: relative;
+}
+
+.modal-close{
+    position:absolute; 
+    top: 1rem;
+    right: 1rem;
+}
+
+.modal-close svg{
+    width: 3rem;
+    height: 3rem;
+    fill: var(--fistcolor)
+}
+
+/*.modal#trabajo-1:target
+  .modal#trabajo-2:target
+  .modal#trabajo-3:target
+  .modal#trabajo-4:target
+  .modal#trabajo-5:target
+  .modal#trabajo-6:target{   sirve para activar los estilos cuando el target de la pagina esten en el id "trabajo-1"
+    opacity: 1;              Este metodo funciona pero no es practico en caso de tener mas de 6 ventanas
+    pointer-events: auto;
+}*/
+
+.modal[id|="trabajo"]:target{ /*con esto cuando los id que tengan "trabajo" en su nombre activan estos estilos*/
+    opacity:1;
+    pointer-events: auto;
+}
+
+
+/**************ProgressBar*******************/
+progress{
+    width: 100%;
+    height: 1rem;
+    background-color: var(--gray-color);
+}
+
+progress::-webkit-progress-bar{  /*utilizar esto para los navegadores, CAMBIA EL COLOR DE FONDO DE LAS BARRAS*/
+    background-color: var(--gray-color);
+}
+
+progress::-webkit-progress-value{  /*utilizar esto para los navegadores, CAMBIA EL COLOR DEL VALOR EN LA BARRA. No afecta al navegador mozilla*/
+    background-color: var(--gray-dark-color);
+}
+
+progress::-moz-progress-value{  /*utilizar esto para los navegadores mozila, CAMBIA EL COLOR DEL VALOR EN LA BARRA*/
+    background-color: var(--gray-dark-color);
+}
+
+.progress{
+    margin:1rem auto;
+}
+.progress>p{ /*hay parrafos que son hijos directos*/
+    margin:0;
+    display: flex;
+    justify-content: space-between;
+    font-size: .85rem; 
+}
+
+
+/***************Utilities****************/
+
+.bg-gray-light{
+    background-color: var(--gray-light-color);
+}
+
+.box-shadow-1{
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.25);
+}
+/********MAQUETA SECCION HOME Y COMPONENTE HERO IMAGE*****/
+.btn{
+    border-radius:.5rem;
+    padding:1rem;
+    display:inline-block;
+    width:200px;
+    font-weight: bold;
+    text-align:center;
+    text-decoration: none;
+    color:var(--white-color);
+    background-color: var(--fistcolor);
+}
+/***FIN***/
+
+/*MAQUETADO MOVIL HEADER*/
+.container{
+    margin-left: auto;
+    margin-right:auto;
+    max-width:var(--max-width); /*esto es: max-width:1200px; YA ESTA DECLARADA ARRIBA, SOLO SE LLAMA A LA VARIABLE*/
+}
+
+.gray-scale{
+    filter: grayscale(1);
+}
+
+.none{
+    display: none;
+}
+
+.section{
+    padding:2rem 1rem;
+}
+
+.section-title{
+    border-top: thin solid var(--fistcolor);
+    border-bottom: thin solid var(--fistcolor);
+    margin:2rem auto; /*La propiedad AUTO, obliga al contenido cambiar su tamaño automaticamente en funcion de la resolucion de la pantalla*/
+    padding: .5rem 1rem;
+    width: 250px;
+    text-align: center;
+    color:var(--title-color)
+    
+}
+
+
+
+.text-left{
+    text-align: left;
+}
+
+.text-center{ 
+    text-align: center;
+}
+
+.text-right{
+    text-align:right;
+}
+
+@media screen and (min-width:1024px){ 
+
+    .full-lg-screen{
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .text-lg-center{
+        text-align: center;
+    }
+
+    .text-lg-right{
+        text-align:right;
+    }
+
+    .text-lg-left{
+        text-align: left;
+    }
+}
+/*************Site Styles**************/
+
+.about > article{
+    margin-bottom: 2rem;
+}
+
+.header{  /*LA CABEZERA VARIA DEPENDIENDO DE UN SITIO Y OTRO, LOS VALORES VARIAN*/
+    position:fixed;
+    left:0;
+    bottom:0;
+    z-index: 999;
+    padding: 1rem;
+    width:100%;
+    height: var(--header-height);
+    background-color: var(--second-color);
+}
+
+.header > .container{/*EL CONTENEDOR QUE ES HIJO DIRECTO DEL HEADER SE REPRESENTA CON UN ">"*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a{
+    color:var(--fistcolor);
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+
+
+.portfolio-card{
+    position:relative;
+    width: 100%;
+    margin:0 auto;
+    display: block;
+}
+
+.portfolio-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /*esto evita que se deforme la imagen y no pierda su aspecto*/
+}
+
+.portfolio-card-info{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--first-alpha-color);
+    color:var(--white-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.portfolio-card:hover .portfolio-card-info{ /*CUANDO EL CURSOR ESTE SOBRE LA CLASE ".portfolio-card"*/
+                                            /*se va a modificar los siguientes atributos de*/
+                                            /*la clase".portfolio-card-info"*/
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.portfolio-card-info > div{
+    padding: 1rem;
+    border: thin solid var(--white-color); /*BORDE DE LINEA FINA Y SOLIDA(CONTINUA)*/
+    width: 100%; /*ANCHURA DEL 100%*/
+    height: 100%; /*ALTURA DEL 100%*/
+}
+
+.portfolio-card-info div{
+    display: grid;
+}
+
+.portfolio-modal h3{
+
+        border-bottom: medium solid var(--fistcolor);
+        padding: .5rem 0; /*un paddin de .5rem arriba y abajo. Padding de 0 a los costados*/
+        margin:1rem auto; /*misma funcionalidad que arriba*/
+        color:var(--title-color);
+    }
+
+.portfolio-details{
+display: grid;
+grid-template-columns: 40% 60%; /*la primera fila ocupara el 40% y la segunda el 60%*/
+grid-auto-rows: 2rem; /*define la altura de las filas*/
+}
+
+.portfolio-details b{
+    color:var(--fistcolor)
+}
+
+.portfolio-modal{
+    background-color: var(--white-color);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;  
+}
+
+
+
+.service-card{
+    margin:1rem auto; /*Se le aplica arriba y abajo un margin de 1 rem, y a los lados un margin AUTO*/
+    padding: 1rem;
+    text-align: center;
+}
+
+.service-card h3{
+    color:var(--title-color);
+}
+.service-card svg{
+    fill:var(--fistcolor);
+    margin-bottom: 1.25rem; /*aplicamos un margen debajo de la imagen de 1.25rem*/
+}
+    /*FIN*/
+
+    @media screen and (min-width:768px){ /*CUANDO EL SEA DISPOSITIVO SEA PANTALLA Y QUE LA MINIMA ALTURA SEA 768px*/
+
+        .portfolio > .container{
+            display: grid;
+            grid-template-columns: repeat(2,50%);
+        }
+
+        .portfolio .section-title{
+            grid-column: span 2;
+        }
+
+        .portfolio-modal{
+            flex-direction: row;
+            max-width: 800px;
+        }
+
+        .portfolio-info{
+            margin-left: 1rem;
+            align-self: center;
+        }
+
+
+        .services > .container{
+            display: grid;
+            grid-template-columns:repeat(2,45%);
+            justify-content: space-between;
+            align-content: center;
+        }
+
+        .services .section-title{
+            grid-column: span 2;  /*HACE QUE EL ELEMENTO OCUPE DOS COLUMNAS*/
+        }
+
+    }
+
+    /*MAQUETADO ESCRITORIO HEADER Y MENU*/
+    @media screen and (min-width:1024px)
+    {
+    .about{
+        display: grid;
+        grid-template-columns:repeat(3,30%);
+        justify-content: space-between;
+        align-content: center;
+    }
+        .header{ /*1:28:00*/
+            position:sticky;
+            top:0;
+            padding: 0.5rem;
+            height: calc(var(--header-height))-0.5rem;
+        }
+
+        .portfolio > .container{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+        }
+
+        .portfolio .section-title{
+            grid-column: span 3;
+        }
+
+        .services > .container{
+            /*display: grid;*/  /*Se quitan esas lineas porque en la clase ABOUT, ya esta definida y hereda sus propiedades a lo que tengan dentro*/
+            grid-template-columns:repeat(3,30%);
+            /*justify-content: space-between;*/
+            /*align-content: center;*/
+        }
+
+        .services .section-title{
+            grid-column: span 3;  /*HACE QUE EL ELEMENTO OCUPE DOS COLUMNAS*/
+        }
+
+
+
+    }
+    /*FIN*/
+
+
